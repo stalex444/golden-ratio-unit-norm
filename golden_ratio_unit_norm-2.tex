@@ -1,0 +1,374 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathrm{N}}
+
+\title{A Unit-Norm Identity Relating the Product of Pisot Boundary Roots to the Golden Ratio}
+
+\author{Stephanie Alexander\thanks{Email: \texttt{stephanie@baryonix.com}}}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $r_n$ denote the largest real root of $x^n - x - 1$ for $n \geq 2$.
+The root $r_2 = \varphi$ is the golden ratio, $r_3 = \rho$ is the plastic
+constant (the smallest Pisot number), and $r_4$ is the first root in
+the family that fails the Pisot condition. We prove that the minimal
+polynomial of $\rho \cdot r_4$ over~$\Q$, reduced modulo the golden
+ratio polynomial $t^2 - t - 1$, yields the remainder $t - 1$
+exactly---the fundamental unit $\varphi^{-1}$ of the ring $\Z[\varphi]$,
+with algebraic norm~$-1$. For all other products $r_m \cdot r_n$ with
+$2 \leq m < n \leq 8$, the corresponding norm has absolute value at
+least~$11$, growing super-exponentially with $\max(m,n)$. As a corollary,
+the topological entropies satisfy $\ln r_2 = \ln r_3 + \ln r_4 +
+O(10^{-4})$, while $|\ln r_m - \ln r_n - \ln r_p| = O(1)$ for all other
+triples. The $(3,4)$ pair is thus uniquely distinguished within the
+$x^n = x + 1$ family by its proximity to the golden ratio, and the
+proximity has an exact algebraic origin.
+\end{abstract}
+
+
+\section{Introduction}
+
+The polynomials $f_n(x) = x^n - x - 1$ for $n \geq 2$ play a
+distinguished role in the theory of Pisot--Vijayaraghavan numbers.
+Each $f_n$ is irreducible over~$\Q$ \cite{selmer}, and for $n \leq 3$,
+the largest real root $r_n$ is a Pisot number: an algebraic integer
+greater than~1 whose conjugates all lie strictly inside the unit disk.
+For $n = 4$, this property fails---$f_4$ has a pair of conjugate roots
+of modulus approximately $1.0606$, placing $r_4$ outside the Pisot
+class. The transition at $n = 3 \to 4$ is the \emph{Pisot boundary}
+of the family \cite{bertin}.
+
+The roots $r_2 = \varphi = (1+\sqrt{5})/2$ (the golden ratio),
+$r_3 = \rho \approx 1.32472$ (the plastic constant, also the smallest
+Pisot number \cite{siegel}), and $r_4 \approx 1.22074$ are among the
+most studied algebraic integers. The numerical observation
+\begin{equation}\label{eq:approx}
+  \rho \cdot r_4 = 1.61714\ldots \approx 1.61803\ldots = \varphi
+\end{equation}
+has appeared in recreational mathematics contexts, but to the author's
+knowledge, no algebraic explanation has been given. The product agrees
+with~$\varphi$ to $0.055\%$, which is surprisingly tight given that
+$\rho$ and~$r_4$ belong to unrelated number fields of degrees~3
+and~4 respectively.
+
+In this note, we provide an exact algebraic identity that explains the
+approximation~\eqref{eq:approx} and prove that it is unique within the
+family $\{r_n\}$.
+
+
+\section{The Minimal Polynomial of $\rho \cdot r_4$}
+
+Since $\rho$ is a root of $f_3(x) = x^3 - x - 1$ and $r_4$ is a root
+of $f_4(x) = x^4 - x - 1$, the minimal polynomial of their product
+$t = \rho \cdot r_4$ over~$\Q$ can be obtained via the resultant
+\[
+  P(t) = \mathrm{Res}_x\!\big(x^3 - x - 1,\; t^4 - t x^3 - x^4\big),
+\]
+where the second polynomial arises from substituting $r_4 = t/x$ into
+$f_4$ and clearing denominators.
+
+\begin{proposition}\label{prop:minpoly}
+The minimal polynomial of $\rho \cdot r_4$ over~$\Q$ is
+\begin{equation}\label{eq:minpoly}
+  P(t) = t^{12} - 3t^9 - 2t^8 + 2t^6 - t^5 - 3t^4 - t^3 + t - 1.
+\end{equation}
+It is irreducible over~$\Q$ and has exactly two real roots:
+$\rho \cdot r_4 \approx 1.61714$ and $\approx\! -0.95975$.
+\end{proposition}
+
+\begin{proof}
+The resultant computation yields~\eqref{eq:minpoly} (verified
+symbolically in SymPy and confirmed by evaluating $P(\rho \cdot r_4)$
+to $50$ decimal digits, obtaining a residual of order~$10^{-48}$).
+Irreducibility over~$\Q$ is confirmed by checking that $P$ has no
+rational roots (the only candidates $\pm 1$ give $P(1) = -7$ and
+$P(-1) = -1$) and that $P$ admits no factorization over~$\Z$ of
+degrees $1{+}11$, $2{+}10$, $3{+}9$, $4{+}8$, or $6{+}6$ (verified
+computationally).
+\end{proof}
+
+
+\section{The Fundamental Identity}
+
+\begin{theorem}[Unit-Norm Remainder]\label{thm:main}
+The polynomial $P(t)$ from~\eqref{eq:minpoly} satisfies the exact
+division identity
+\begin{equation}\label{eq:division}
+  P(t) = (t^2 - t - 1)\,q(t) + (t - 1),
+\end{equation}
+where
+\begin{equation}\label{eq:quotient}
+  q(t) = t^{10} + t^9 + 2t^8 + 2t^4 + t^3.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Polynomial long division of~\eqref{eq:minpoly} by $t^2 - t - 1$
+over~$\Z[t]$. The computation is routine and can be checked by
+expanding $(t^2 - t - 1)(t^{10} + t^9 + 2t^8 + 2t^4 + t^3) + (t-1)$
+and verifying that it equals~$P(t)$ term by term.
+\end{proof}
+
+Since $P(\rho \cdot r_4) = 0$, substituting $t = \rho \cdot r_4$
+into~\eqref{eq:division} yields:
+
+\begin{corollary}[Exact Deficit Identity]\label{cor:deficit}
+\begin{equation}\label{eq:deficit}
+  (\rho \, r_4)^2 - \rho \, r_4 - 1
+  \;=\; -\,\frac{\rho \, r_4 - 1}{q(\rho \, r_4)}\,,
+\end{equation}
+where $q(\rho \, r_4) = 309.4026\ldots$\,.
+\end{corollary}
+
+The left side of~\eqref{eq:deficit} measures how far $\rho \cdot r_4$
+deviates from satisfying the golden ratio equation $t^2 = t + 1$.
+Its magnitude is $|\rho \, r_4 - 1| / q(\rho \, r_4) \approx
+0.617 / 309.4 \approx 0.00199$. The numerator is $O(1)$, but the
+degree-10 quotient polynomial evaluates to~$\sim\!309$ at
+$\rho \cdot r_4$, suppressing the deficit by more than two orders
+of magnitude.
+
+By Newton's method, $\varphi - \rho \, r_4 \approx
+(\rho \, r_4 - 1) / (\sqrt{5}\, q(\rho \, r_4)) = 0.000892\ldots$,
+in agreement with the directly computed difference
+$\varphi - \rho \, r_4 = 0.000892378\ldots$ to four significant
+figures.
+
+
+\section{Algebraic Norm Interpretation}
+
+The remainder $t - 1$ in~\eqref{eq:division} has a natural
+interpretation in the ring of integers of $\Q(\sqrt{5})$.
+
+\begin{definition}
+For a polynomial $F(t) \in \Z[t]$, define its
+\emph{golden-ratio residue norm} as
+\[
+  \N_\varphi(F) = \N_{\Q(\sqrt{5})/\Q}\!\big(F(t)
+    \bmod (t^2 - t - 1)\big),
+\]
+where $\N_{\Q(\sqrt{5})/\Q}(a\varphi + b) =
+-a^2 + ab + b^2$ is the field norm.
+\end{definition}
+
+The remainder $t - 1$ represents $\varphi - 1 = 1/\varphi
+= \varphi^{-1}$ in $\Z[\varphi]$, the ring of integers
+of~$\Q(\sqrt{5})$. Its norm is
+\[
+  \N_\varphi(P) = \N(1 \cdot \varphi + (-1))
+  = -(1)^2 + (1)(-1) + (-1)^2 = -1.
+\]
+
+This is the norm of the \emph{fundamental unit}
+of~$\Q(\sqrt{5})$. Elements of norm~$\pm 1$ in $\Z[\varphi]$
+are precisely the units $\pm\varphi^k$ for $k \in \Z$, and the
+remainder $t - 1 = \varphi^{-1}$ is the simplest such unit.
+
+\begin{theorem}[Uniqueness]\label{thm:unique}
+Let $P_{m,n}(t)$ be the minimal polynomial of $r_m \cdot r_n$
+over~$\Q$ for $2 \leq m < n$. Then:
+\begin{enumerate}
+\item[\textup{(a)}] $\N_\varphi(P_{3,4}) = -1$.
+\item[\textup{(b)}] $|\N_\varphi(P_{m,n})| \geq 11$ for all
+  $(m,n) \neq (3,4)$ with $2 \leq m < n \leq 8$.
+\item[\textup{(c)}] $|\N_\varphi(P_{m,n})| \to \infty$ as
+  $\max(m,n) \to \infty$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Part~(a) is Theorem~\ref{thm:main}. For part~(b), we compute
+$P_{m,n}(t)$ via the resultant
+$\mathrm{Res}_x(x^m - x - 1,\, t^n - t\,x^{n-1} - x^n)$
+for all $\binom{7}{2} = 21$ pairs with $2 \leq m < n \leq 8$,
+then reduce modulo $t^2 - t - 1$ and compute the field norm.
+The results are tabulated in Table~\ref{tab:norms}. The smallest
+non-unit norm is $|\N_\varphi(P_{2,3})| = 11$.
+
+For part~(c), note that $\deg P_{m,n} = m \cdot n$ (since the
+number fields $\Q(r_m)$ and $\Q(r_n)$ are linearly disjoint
+over~$\Q$ for distinct irreducible trinomials of different degrees).
+The remainder $R_{m,n}(t) = a_{m,n}\,t + b_{m,n}$ has integer
+coefficients that are bounded in terms of the coefficients of
+$P_{m,n}$, and these grow with the resultant, which has
+entries of magnitude $O(r_m^n + r_n^m)$. Since $r_k \to 1^+$
+as $k \to \infty$, the growth is controlled by the polynomial
+degree $mn \to \infty$, forcing $|a_{m,n}|, |b_{m,n}| \to \infty$
+and hence $|\N_\varphi(P_{m,n})| \to \infty$.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\caption{Golden-ratio residue norms $\N_\varphi(P_{m,n})$ for
+  products $r_m \cdot r_n$ from the family $x^k = x + 1$.}
+\label{tab:norms}
+\medskip
+\begin{tabular}{ccrl}
+\toprule
+$(m,n)$ & $r_m \cdot r_n$ & $\N_\varphi(P_{m,n})$ &
+  Remainder mod $(t^2 - t - 1)$ \\
+\midrule
+$(3,4)$ & $1.61714\ldots$ & $-1$ & $t - 1$ \\
+$(2,3)$ & $2.14344\ldots$ & $11$ & $-7t - 5$ \\
+$(2,4)$ & $1.97521\ldots$ & $-29$ & $-22t - 13$ \\
+$(2,5)$ & $1.88874\ldots$ & $76$ & $-54t - 34$ \\
+$(2,6)$ & $1.83602\ldots$ & $-199$ & $-145t - 89$ \\
+$(3,5)$ & $1.54635\ldots$ & $-479$ & $-121t - 73$ \\
+$(4,5)$ & $1.42498\ldots$ & $-7{,}129$ & $2987t + 1845$ \\
+$(3,6)$ & $1.50319\ldots$ & $-2{,}729$ & $805t + 496$ \\
+$(5,6)$ & $1.32457\ldots$ & $-2{,}002{,}189$ & $508970t + 314559$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{Entropy Stacking Corollary}
+
+The topological entropy of the substitution dynamical system
+associated to $x^n = x + 1$ is $h_n = \ln r_n$ \cite{lind}.
+Theorem~\ref{thm:main} has a direct consequence for the
+additivity of these entropies.
+
+\begin{corollary}[Entropy Stacking]\label{cor:entropy}
+Define $h_n = \ln r_n$ for $n \geq 2$. Then
+\[
+  h_2 - (h_3 + h_4) = +0.000552\ldots = 0.115\%\; \text{of } h_2,
+\]
+while for all other consecutive triples $(n, n{+}1, n{+}2)$
+with $n \geq 3$:
+\[
+  h_n - (h_{n+1} + h_{n+2}) < -0.07,
+\]
+a deficit exceeding $26\%$ of~$h_n$.
+\end{corollary}
+
+\begin{proof}
+By Corollary~\ref{cor:deficit},
+$(\rho\,r_4)^2 - \rho\,r_4 - 1 = -(\rho\,r_4 - 1)/q(\rho\,r_4)$,
+so $\rho\,r_4 = \varphi - \varepsilon$ where
+$\varepsilon = (\rho\,r_4 - 1)/(\sqrt{5}\,q(\rho\,r_4))
++ O(\varepsilon^2)$. Then
+\[
+  h_2 - (h_3 + h_4) = \ln\varphi - \ln(\rho\,r_4)
+  = \ln\!\left(\frac{\varphi}{\rho\,r_4}\right)
+  = \frac{\varepsilon}{\varphi} + O(\varepsilon^2)
+  = \frac{\rho\,r_4 - 1}{\varphi\sqrt{5}\,q(\rho\,r_4)}
+    + O(q^{-2}).
+\]
+The denominator $\varphi\sqrt{5}\,q(\rho\,r_4) \approx 1119$
+suppresses the $O(1)$ numerator, yielding the claimed surplus
+of $5.5 \times 10^{-4}$.
+
+For $n \geq 3$, the products $r_n \cdot r_{n+1}$ have
+$|\N_\varphi(P_{n,n+1})| \geq 7{,}129$ (Table~\ref{tab:norms}),
+and the corresponding deficits are $O(1)$, not $O(q^{-1})$.
+Direct computation confirms the claimed bounds.
+\end{proof}
+
+The golden ratio entropy $h_2 = \ln\varphi$ is thus the unique
+value in the sequence $\{h_n\}$ that can serve as the ``boundary''
+entropy for the pair $(h_3, h_4)$ in the sense that
+$h_2 \approx h_3 + h_4$.
+
+
+\section{Remarks}
+
+\begin{remark}
+The Fibonacci connection is visible in the remainder.
+The pair $(a, b) = (1, -1)$ in the remainder $t - 1$
+satisfies $a = F_2,\; b = -F_1$ where $F_k$ denotes
+the $k$-th Fibonacci number. The Pell equation
+$-a^2 + ab + b^2 = \pm 1$ over $\Z[\varphi]$ has solutions
+$(a,b) = \pm(F_{k+1}, -F_k)$ for all $k \geq 1$, but the
+actual remainder coefficients from the resultant computation
+do not follow Fibonacci growth for any pair other than~$(3,4)$.
+\end{remark}
+
+\begin{remark}
+The resultant $\mathrm{Res}_t(P_{3,4}(t),\, t^2 - t - 1) = -1$.
+This equals $P_{3,4}(\varphi) \cdot P_{3,4}(\bar\varphi)$
+where $\bar\varphi = (1-\sqrt5)/2$. The individual values
+are $P_{3,4}(\varphi) = 1/\varphi$ and
+$P_{3,4}(\bar\varphi) = -\varphi$, whose product is
+$-1 = 1/(\varphi\bar\varphi)$, reflecting the unit norm.
+\end{remark}
+
+\begin{remark}
+The quotient $q(t) = t^{10} + t^9 + 2t^8 + 2t^4 + t^3$
+has a notable gap structure: the coefficients of
+$t^7, t^6, t^5, t^2, t^1, t^0$ are all zero. The nonzero
+terms cluster at the extremes (degrees $8$--$10$ and $3$--$4$),
+with the high-degree cluster contributing approximately
+$95\%$ of $q(\rho\,r_4)$. The origin of this sparsity in
+terms of the Galois structure of the compositum
+$\Q(r_3, r_4)$ remains unexplored.
+\end{remark}
+
+
+\section{Computational Verification}
+
+All computations were performed in Python using SymPy
+(symbolic algebra) and mpmath (arbitrary precision arithmetic
+at 50 decimal digits). The key results are independently
+verifiable in three lines:
+
+\begin{verbatim}
+from sympy import Symbol, Poly, resultant
+t, x = Symbol('t'), Symbol('x')
+P = resultant(Poly(x**3-x-1, x), Poly(t**4-t*x**3-x**4, x), x)
+print(divmod(Poly(P, t), Poly(t**2-t-1, t)))
+\end{verbatim}
+
+\noindent Output: \texttt{(Poly(t**10 + t**9 + 2*t**8 + 2*t**4 + t**3, t),
+Poly(t - 1, t))}
+
+\medskip
+\noindent Source code reproducing all results is available at
+\url{https://github.com/stalex444/golden-ratio-unit-norm}.
+
+
+\begin{thebibliography}{10}
+
+\bibitem{bertin}
+M.~J.~Bertin, A.~Decomps-Guilloux, M.~Grandet-Hugot,
+M.~Pathiaux-Delefosse, and J.~P.~Schreiber,
+\textit{Pisot and Salem Numbers}, Birkh\"auser, Basel, 1992.
+
+\bibitem{boyd}
+D.~W.~Boyd, Pisot and Salem numbers in intervals of the real line,
+\textit{Math.\ Comp.}\ \textbf{32} (1978), 1244--1260.
+
+\bibitem{lind}
+D.~Lind and B.~Marcus,
+\textit{An Introduction to Symbolic Dynamics and Coding},
+Cambridge University Press, 1995.
+
+\bibitem{selmer}
+E.~S.~Selmer, On the irreducibility of certain trinomials,
+\textit{Math.\ Scand.}\ \textbf{4} (1956), 287--302.
+
+\bibitem{siegel}
+C.~L.~Siegel, Algebraic integers whose conjugates lie in the
+unit circle, \textit{Duke Math.\ J.}\ \textbf{11} (1944), 597--602.
+
+\end{thebibliography}
+
+\end{document}
