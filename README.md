@@ -76,10 +76,7 @@ This verifies all four theorems:
 ## Files
 
 - `verify_spectral_law.py` — Full verification of all theorems (symbolic + numeric)
-- `verify_unit_norm.py` — Original verification of the (3,4) identity
 - `notebooks/` — Colab notebook
-- `golden_ratio_unit_norm.tex` — Paper source (LaTeX)
-- `golden_ratio_unit_norm.pdf` — Paper (compiled)
 
 ## Citation
 
@@ -96,5 +93,4 @@ Paper available on Zenodo: [10.5281/zenodo.18435677](https://doi.org/10.5281/zen
 
 ## License
 
-MIT# golden-ratio-unit-norm
-Companion code and paper: A Fibonacci–Lucas Spectral Law for the Trinomials x^n = x + 1
+MIT
